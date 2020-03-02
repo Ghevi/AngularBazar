@@ -1,5 +1,4 @@
-# AngularBazar
-## Frontend software for e-commerce project
+# Frontend software for e-commerce project (seguendo tutorial)
 
 ### Release 1.0
 Shows a list of products
