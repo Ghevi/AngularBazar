@@ -7,12 +7,24 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { HttpClientModule } from '@angular/common/http';
 import { ProductService } from './services/product.service';
 
+import { Routes, RouterModule } from '@angular/router';
+
+// first that matches, if-else like
+const routes: Routes = [
+  {path: 'category/:id', component: ProductListComponent},
+  {path: 'category', component: ProductListComponent},
+  {path: 'products', component: ProductListComponent},
+  {path: '', redirectTo: '/products', pathMatch: 'full'}, //empty path
+  {path: '**', redirectTo: '/products', pathMatch: 'full'}, //generic wildcard.
+]
+
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent
   ],
   imports: [
+    RouterModule.forRoot(routes), // routes like above
     BrowserModule,
     HttpClientModule
   ],
