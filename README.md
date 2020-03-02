@@ -1,4 +1,5 @@
-# Frontend software for e-commerce project (seguendo tutorial)
+## Frontend software for e-commerce project 
+(tutorial di Chad Darby: https://www.udemy.com/course/full-stack-angular-spring-boot-tutorial/)
 
 ### Release 1.0
 Shows a list of products
