@@ -1,0 +1,112 @@
+First, modify spring boot app ProductRepository adding the method for example a query method.
+
+Then here app.module.ts --> routing ( path )
+
+create a new component --> terminal, ng generate component components/name-component
+
+open name-component/component.ts and copy the selector without ''
+
+open app.component.html (main app) and paste the selector with <>selector</>
+in the appropriate place 
+
+check name-component.component.html if there is <p>name-component works!<p>
+
+test the app , there will be just the phrase
+
+
+in app.component.html cut the part of the component with the logic for 
+example: 
+ <!--
+        <form class="form-header" onsubmit="return false;" method="GET">
+          <input class="au-input au-input-xl" type="text" name="search" placeholder="Search for data ..." />
+             <button class="au-btn-submit" type="submit">
+               Search
+            </button>
+        </form>
+-->
+
+and paste it in name-component.component.html on the <p>name-component works!<p>
+it will become like this: CHECK THE COMMENTS!!!
+
+<div class="form-header">
+
+    <input #myInput type="text"    //#myInput : template reference variable
+           placeholder="Search for products ..."
+           class="au-input au-input-xl"
+           (keyup.enter)="doSearch(myInput.value)"/> //(keyup.enter) : listen for the "enter key"
+                                                     //doSearch : Call method in Angular, can be any method name
+                                                     //myInput.value : the text the user typed in
+
+    <button (click)="doSearch(myInput.value)" 
+            class="au-btn-submit">
+        Search
+    </button>
+
+</div>
+
+open name-component.ts and inject the router:
+constructor() { } --> constructor(private router: Router) { }
+create method with the value passed in: example: doSearch(value: string){}
+    console.log(`value=${value}`);
+    this.router.navigateByUrl(`/search/${value}`); append to //search/:keyword in app.module.ts
+
+open product-list.component.ts define new property 
+
+create handleListProducts(){ paste here what it was in listProducts }
+
+in listProducts(){} write this:
+this.searchMode = this.route.snapshot.paramMap.has('keyword'); //come from search/:keyword from  app-module.ts
+
+    if(this.searchMode){
+      this.handleSearchProducts();
+    }
+    else{
+      this.handleListProducts();
+    }
+  }
+
+Create the method handleListProducts(); :
+handleSearchProducts(){
+    const theKeyword: string = this.route.snapshot.paramMap.get('Keyword');
+
+    //now search for products using keyword
+    this.productService.searchProducts(theKeyword).subscribe(
+      data => {
+        this.products = data;
+      }
+    )
+  }
+
+quick fix on searchProducts() which is missing, and click declare it in product.service.ts
+this gets created: 
+searchProducts(theKeyword: string) {
+    throw new Error("Method not implemented.");
+  }
+
+cut and paste it a bit down then remove : string and paste Observable<Product[]> as return type
+remove the placeholder code inside the method and paste what there was in getProductList:
+    
+    const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+    
+    
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(  //baseUrl --> searchUrl
+      map(response => response._embedded.products)
+    );
+
+now modifie the code to be like this:
+    //need to build URL based on the keyword
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    
+    
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(  //baseUrl --> searchUrl
+      map(response => response._embedded.products)
+    );
+
+  }
+
+ refactor the last two line of cod to be extracted in the new method 
+ return this.getProducts(searchUrl);
+
+ and also past it above in getProductList instead of those two lines.
+
+

@@ -20,30 +20,43 @@ export class ProductService {
 
     // @TODO: need to build URL based on category id --> @DONE
     const searchUrl = `${this.baseUrl}/search/findByCategoryId?id=${theCategoryId}`;
+
+    return this.getProducts(searchUrl);
     
-    
-    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(  //baseUrl --> searchUrl
-      map(response => response._embedded.products)
-    );
   }
 
-  getProductCategories(): Observable<ProductCategory[]> {
+  searchProducts(theKeyword: string): Observable<Product[]> {
+    
+    //need to build URL based on the keyword
+    const searchUrl = `${this.baseUrl}/search/findByNameContaining?name=${theKeyword}`;
+    
+    
+    return this.getProducts(searchUrl);
 
-    return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(  //Call REST API
-      map(response => response._embedded.productCategory) // Returns an observable, maps JSON data from Spring Data REST to productCategory array
+  }
+
+  private getProducts(searchUrl: string): Observable<Product[]> {
+    return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(map(response => response._embedded.products));
+  }
+
+  //Call REST API
+  // Returns an observable, maps JSON data from Spring Data REST to productCategory array
+  getProductCategories(): Observable<ProductCategory[]> {
+    return this.httpClient.get<GetResponseProductCategory>(this.categoryUrl).pipe(
+      map(response => response._embedded.productCategory)
     );
   }
 
 }
 
 interface GetResponseProducts {
-  _embedded:{
+  _embedded: {
     products: Product[];
   }
 }
 
 interface GetResponseProductCategory {  //Unwraps the JSON from Spring Data REST using _embedded entry
-  _embedded:{
+  _embedded: {
     productCategory: ProductCategory[];
   }
 }

@@ -1,3 +1,5 @@
+//ROUTING
+
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -9,21 +11,24 @@ import { ProductService } from './services/product.service';
 
 import { Routes, RouterModule } from '@angular/router';
 import { ProductCategoryMenuComponent } from './components/product-category-menu/product-category-menu.component';
+import { SearchComponent } from './components/search/search.component';
 
 // first that matches, if-else like
 const routes: Routes = [
-  {path: 'category/:id/:name', component: ProductListComponent},
+  {path: 'search/:keyword', component: ProductListComponent},
+  {path: 'category/:id', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
   {path: '', redirectTo: '/products', pathMatch: 'full'}, //empty path
-  {path: '**', redirectTo: '/products', pathMatch: 'full'}, //generic wildcard.
-]
+  {path: '**', redirectTo: '/products', pathMatch: 'full'} //generic wildcard.
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductListComponent,
-    ProductCategoryMenuComponent
+    ProductCategoryMenuComponent,
+    SearchComponent
   ],
   imports: [
     RouterModule.forRoot(routes), // routes like above

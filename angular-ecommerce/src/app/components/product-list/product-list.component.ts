@@ -14,7 +14,7 @@ export class ProductListComponent implements OnInit {
 
   products: Product[];
   currentCategoryId: number;
-  currentCategoryName: string;
+  searchMode: boolean;
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { } //inject the activatedRoute (access route parameters)
@@ -27,8 +27,31 @@ export class ProductListComponent implements OnInit {
 
   listProducts(){
 
+    this.searchMode = this.route.snapshot.paramMap.has('keyword'); //come from search/:keyword from  app-module.ts
+
+    if(this.searchMode){
+      this.handleSearchProducts();
+    }
+    else{
+      this.handleListProducts();
+    }
+  }
+
+  handleSearchProducts(){
+    const theKeyword: string = this.route.snapshot.paramMap.get('keyword');
+
+    //now search for products using keyword
+    this.productService.searchProducts(theKeyword).subscribe(
+      data => {
+        this.products = data;
+      }
+    );
+  }
+
+  handleListProducts(){
+
     // Check if "id" parameter is available
-    const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id') //.route use the activated route, 
+    const hasCategoryId: boolean = this.route.snapshot.paramMap.has('id'); //.route use the activated route, 
                                                                           //.snapshot State of the route atm, 
                                                                           //.paramMap map of all route parameters,
                                                                           // ('id') read the id parameter
@@ -36,14 +59,10 @@ export class ProductListComponent implements OnInit {
     if (hasCategoryId) {
       // get the id param string. convert strin to a number using the + symbol
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
-
-      // get the name param string
-      this.currentCategoryName = this.route.snapshot.paramMap.get('name');
     }
     else {
       // not catefory id available...default to category id 1
       this.currentCategoryId = 1;
-      this.currentCategoryName = 'Books';
     }                      
     
     //now get the products for the given category id
@@ -51,7 +70,6 @@ export class ProductListComponent implements OnInit {
       data => {
         this.products = data;
       }
-    )
+    )  
   }
-
 }
