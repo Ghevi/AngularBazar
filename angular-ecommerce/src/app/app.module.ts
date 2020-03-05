@@ -16,7 +16,7 @@ import { SearchComponent } from './components/search/search.component';
 // first that matches, if-else like
 const routes: Routes = [
   {path: 'search/:keyword', component: ProductListComponent},
-  {path: 'category/:id', component: ProductListComponent},
+  {path: 'category/:id/:name', component: ProductListComponent},
   {path: 'category', component: ProductListComponent},
   {path: 'products', component: ProductListComponent},
   {path: '', redirectTo: '/products', pathMatch: 'full'}, //empty path

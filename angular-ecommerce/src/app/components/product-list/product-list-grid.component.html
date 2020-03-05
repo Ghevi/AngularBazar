@@ -13,9 +13,14 @@
                     <div class="product-box">
                         <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
                         <h1>{{ tempProduct.name }}</h1>
-                        <div class="price">{{ tempProduct.unitPrice | currency:'USD' }}</div>
+                        <div class="price">{{ tempProduct.unitPrice | currency:'EUR' }}</div>
                         <a href="#" class="primary-btn">Add to cart</a>
                     </div>
+                </div>
+
+                <!-- if products empty then display a message -->
+                <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">  <!-- ? is a safe navigation operator. guards from null and undefined values in propery paths-->
+                    No products found.
                 </div>
 
             </div>

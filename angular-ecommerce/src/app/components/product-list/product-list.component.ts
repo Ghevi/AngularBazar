@@ -61,7 +61,7 @@ export class ProductListComponent implements OnInit {
       this.currentCategoryId = +this.route.snapshot.paramMap.get('id');
     }
     else {
-      // not catefory id available...default to category id 1
+      // not category id available...default to category id 1
       this.currentCategoryId = 1;
     }                      
     
@@ -70,6 +70,6 @@ export class ProductListComponent implements OnInit {
       data => {
         this.products = data;
       }
-    )  
+    );
   }
 }
