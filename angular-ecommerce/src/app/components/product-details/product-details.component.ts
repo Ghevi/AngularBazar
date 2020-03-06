@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductDetailsComponent implements OnInit {
 
-  product: Product;
+  product: Product = new Product();  //it must be instanciated cuz it was null. Other solutions are using the ? in this.component.html file (wrapping in a div if multiple fields)
 
   constructor(private productService: ProductService,
               private route: ActivatedRoute) { }
