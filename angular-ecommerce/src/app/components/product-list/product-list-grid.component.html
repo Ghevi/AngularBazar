@@ -16,7 +16,7 @@
                             <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
                         </a>
 
-                        <a routerLink="/products/{{ tempProduct.id }}">
+                        <a routerLink="/products/{{ tempProduct.d }}">
                             <h1>{{ tempProduct.name }}</h1>
                         </a>
 
@@ -44,9 +44,10 @@
 
                                 <!-- [()] two ways binding, [] one way binding, () event binding -->
                                 <!-- Parameters of ngb-component = "Properties for the ProductListComponent" -->
-                                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
-                                    [collectionSize]="theTotalElements" (pageChange)="listProducts()">
-
+                                <ngb-pagination [(page)]="thePageNumber" 
+                                                [pageSize]="thePageSize"
+                                                [collectionSize]="theTotalElements" 
+                                                (pageChange)="listProducts()">
                                 </ngb-pagination>
 
                             </div>

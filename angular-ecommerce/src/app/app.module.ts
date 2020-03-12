@@ -33,7 +33,7 @@ const routes: Routes = [
     ProductListComponent,
     ProductCategoryMenuComponent,
     SearchComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
   ],
   imports: [
     RouterModule.forRoot(routes), // routes like above
