@@ -31,6 +31,38 @@
                 </div>
 
             </div>
+
+            <!-- begin footer -->
+            <div class="footer-pagination">
+                <div class="row">
+                    <div class="col-md-6"></div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-9" style="padding-left: 30%">
+                            
+                                <!-- [()] two ways binding, [] one way binding, () event binding -->
+                                <!-- Parameters of ngb-component = "Properties for the ProductListComponent" -->
+                                <ngb-pagination [(page)]="thePageNumber" 
+                                                [pageSize]="thePageSize"
+                                                [collectionSize]="theTotalElements"
+                                                (pageChange)="listProducts()">
+
+                                </ngb-pagination>
+
+                            </div>
+
+                        </div>    
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- end footer-->
+
         </div>    
     </div>
 </div>
