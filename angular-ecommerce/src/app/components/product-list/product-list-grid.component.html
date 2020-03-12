@@ -9,16 +9,16 @@
 
                 <!-- loop over the collection of products -->
                 <div *ngFor="let tempProduct of products" class="col-md-3">
-                    
+
                     <div class="product-box">
-                        
+
                         <a routerLink="/products/{{ tempProduct.id }}">
                             <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
                         </a>
 
                         <a routerLink="/products/{{ tempProduct.id }}">
                             <h1>{{ tempProduct.name }}</h1>
-                        </a>   
+                        </a>
 
                         <div class="price">{{ tempProduct.unitPrice | currency:'EUR' }}</div>
                         <a href="#" class="primary-btn">Add to cart</a>
@@ -26,7 +26,8 @@
                 </div>
 
                 <!-- if products empty then display a message -->
-                <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">  <!-- ? is a safe navigation operator. guards from null and undefined values in propery paths-->
+                <div *ngIf="products?.length==0" class="alert alert-warning col-md-12" role="alert">
+                    <!-- ? is a safe navigation operator. guards from null and undefined values in propery paths-->
                     No products found.
                 </div>
 
@@ -40,19 +41,17 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-9" style="padding-left: 30%">
-                            
+
                                 <!-- [()] two ways binding, [] one way binding, () event binding -->
                                 <!-- Parameters of ngb-component = "Properties for the ProductListComponent" -->
-                                <ngb-pagination [(page)]="thePageNumber" 
-                                                [pageSize]="thePageSize"
-                                                [collectionSize]="theTotalElements"
-                                                (pageChange)="listProducts()">
+                                <ngb-pagination [(page)]="thePageNumber" [pageSize]="thePageSize"
+                                    [collectionSize]="theTotalElements" (pageChange)="listProducts()">
 
                                 </ngb-pagination>
 
                             </div>
 
-                        </div>    
+                        </div>
                     </div>
 
                 </div>
@@ -63,6 +62,6 @@
 
             <!-- end footer-->
 
-        </div>    
+        </div>
     </div>
 </div>
